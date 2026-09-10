@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SkillLink — Peer micro-tutoring</title>
+  <link rel="stylesheet" href="styles.css" />
+  <meta name="description" content="SkillLink: find, book and chat with peer tutors — quick micro-sessions." />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">SkillLink</a>
+      <nav class="nav">
+        <button id="btn-new-skill" class="btn btn-outline">Create Skill</button>
+        <div id="auth-area"></div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Learn faster — book peer micro-sessions</h1>
+      <p class="muted">Search, book, and chat with student tutors in quick 30-60 minute sessions.</p>
+    </section>
+
+    <section class="controls">
+      <input id="search" placeholder="Search skills (react, python...)" />
+      <select id="filter-tag"><option value="">All tags</option></select>
+    </section>
+
+    <section id="skills-grid" class="grid"></section>
+  </main>
+
+  <!-- Modals -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true"></div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Built for Next Byte Hacks — SkillLink demo</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

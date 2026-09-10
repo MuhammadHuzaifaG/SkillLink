@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String         @id @default(cuid())
+  name       String
+  email      String         @unique
+  password   String
+  bio        String?
+  createdAt  DateTime       @default(now())
+  skills     Skill[]
+  bookingsAsStudent Booking[] @relation("student")
+  bookingsAsOwner   Booking[] @relation("owner")
+  reviews    Review[]
+  tokens     RefreshToken[]
+}
+
+model Skill {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  tags        String[] @default([])
+  priceCents  Int
+  durationMin Int
+  owner       User     @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  createdAt   DateTime @default(now())
+  bookings    Booking[]
+  reviews     Review[]
+}
+
+model Booking {
+  id         String   @id @default(cuid())
+  skill      Skill    @relation(fields: [skillId], references: [id])
+  skillId    String
+  student    User     @relation("student", fields: [studentId], references: [id])
+  studentId  String
+  owner      User     @relation("owner", fields: [ownerId], references: [id])
+  ownerId    String
+  startAt    DateTime
+  endAt      DateTime
+  status     BookingStatus @default(PENDING)
+  createdAt  DateTime @default(now())
+  messages   Message[]
+  review     Review?
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  booking   Booking  @relation(fields: [bookingId], references: [id])
+  bookingId String
+  senderId  String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  rating     Int
+  comment    String?
+  reviewer   User     @relation(fields: [reviewerId], references: [id])
+  reviewerId String
+  skill      Skill    @relation(fields: [skillId], references: [id])
+  skillId    String
+  booking    Booking? @relation(fields: [bookingId], references: [id])
+  bookingId  String?
+  createdAt  DateTime @default(now())
+}
+
+model RefreshToken {
+  id         String   @id @default(cuid())
+  tokenHash  String   @unique
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  revoked    Boolean  @default(false)
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}

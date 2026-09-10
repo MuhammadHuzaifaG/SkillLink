@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: skilllink
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks: [appnet]
+
+  redis:
+    image: redis:7
+    networks: [appnet]
+
+  backend:
+    build: ./backend
+    command: npm run dev
+    volumes:
+      - ./backend:/app
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/skilllink
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: "dev-secret"
+      CORS_ORIGIN: "http://localhost"
+      NODE_ENV: development
+    depends_on:
+      - postgres
+      - redis
+    networks: [appnet]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks: [appnet]
+
+volumes:
+  db-data:
+
+networks:
+  appnet:
