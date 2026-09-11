@@ -3,6 +3,7 @@
 SkillLink is a peer micro-tutoring platform that helps students quickly find, book, and chat with peer tutors for short, focused sessions. Built as a polished, demo-ready hackathon project, SkillLink demonstrates a full-stack implementation (backend API, realtime chat, static frontend) with production-minded defaults.
 
 ---
+<img width="1325" height="632" alt="Capture" src="https://github.com/user-attachments/assets/d0604d51-3ea3-457a-8dfe-9e45fbb8fdcc" />
 
 ## Table of contents
 - Intro
@@ -15,7 +16,6 @@ SkillLink is a peer micro-tutoring platform that helps students quickly find, bo
 - Run locally (quickstart)
 - Detailed run & dev workflow
 - Project structure
-- Demo / judge script
 - Production notes & next steps
 - Troubleshooting
 
