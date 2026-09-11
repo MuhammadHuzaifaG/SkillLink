@@ -84,7 +84,7 @@ Many students need fast, affordable help on specific problems or concepts. Tradi
 - git (optional: to clone repository)
 
 Files you should see in the repo:
-- backend/ (server code, Prisma schema)
+- backend/ (server code, Prisma schema) 
 - frontend/ (static site, assets, nginx config)
 - docker-compose.yml
 - README.md
